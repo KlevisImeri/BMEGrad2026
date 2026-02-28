@@ -179,24 +179,33 @@ async function generateVideoPlaceholder(outputPath) {
 }
 
 async function compressImage(inputPath) {
-  try {
-    const tempPath = inputPath + '.tmp';
-    await sharp(inputPath)
-      .resize(MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, {
-        fit: 'inside',
-        withoutEnlargement: true
-      })
-      .jpeg({ quality: COMPRESSION_QUALITY, progressive: true })
-      .withMetadata()
-      .toFile(tempPath);
-    
-    // Replace original with compressed
-    fs.unlinkSync(inputPath);
-    fs.renameSync(tempPath, inputPath);
-    console.log(`  ✓ Compressed (preserving EXIF/GPS): ${path.basename(inputPath)}`);
-  } catch (error) {
-    console.error(`  ✗ Failed to compress: ${inputPath} - ${error.message}`);
+  const filename = path.basename(inputPath);
+  const ext = path.extname(filename);
+  const basename = path.basename(filename, ext);
+  
+  // Skip if already compressed
+  if (basename.includes('.cps')) {
+    console.log(`  ✓ Already compressed: ${filename}`);
+    return;
   }
+  
+  // Compress and rename with .cps suffix
+  const newFilename = `${basename}.cps${ext}`;
+  const newPath = path.join(path.dirname(inputPath), newFilename);
+  
+  await sharp(inputPath)
+    .resize(MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, {
+      fit: 'inside',
+      withoutEnlargement: true
+    })
+    .jpeg({ quality: COMPRESSION_QUALITY, progressive: true })
+    .withMetadata()
+    .toFile(newPath);
+  
+  // Remove original
+  fs.unlinkSync(inputPath);
+  
+  console.log(`  ✓ Compressed: ${newFilename}`);
 }
 
 async function main() {
