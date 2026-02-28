@@ -79,7 +79,7 @@ export default function GalleryComponent({ items }) {
   }
 
   return (
-    <div className="flex flex-col h-screen p-3 md:p-6 max-w-[1800px] mx-auto">
+    <div className="flex flex-col h-screen p-3 md:p-6 max-w-[1800px] mx-auto pb-24">
       <header className="flex-shrink-0 bg-gradient-to-r from-black/80 via-red-900/40 to-black/80 backdrop-blur-sm rounded-2xl py-3 px-3 md:py-6 md:px-6 mb-3 md:mb-6 border border-red-900/30">
         <div className="flex items-center justify-center gap-2 md:gap-4 lg:gap-6">
           <span className="text-2xl md:text-4xl lg:text-6xl" role="img" aria-label="Albania">🇦🇱</span>

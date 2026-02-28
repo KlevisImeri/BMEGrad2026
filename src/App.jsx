@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import GalleryComponent from './components/Gallery';
 import HintPopup from './components/HintPopup';
+import Footer from './components/Footer';
 
 function App() {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -36,6 +37,7 @@ function App() {
     <>
       <HintPopup />
       <GalleryComponent items={mediaFiles} />
+      <Footer />
     </>
   );
 }
