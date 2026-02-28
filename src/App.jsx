@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import GalleryComponent from './components/Gallery';
+import HintPopup from './components/HintPopup';
 
 function App() {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -31,7 +32,12 @@ function App() {
     );
   }
 
-  return <GalleryComponent items={mediaFiles} />;
+  return (
+    <>
+      <HintPopup />
+      <GalleryComponent items={mediaFiles} />
+    </>
+  );
 }
 
 export default App;

@@ -194,6 +194,7 @@ async function compressImage(inputPath) {
   const newPath = path.join(path.dirname(inputPath), newFilename);
   
   await sharp(inputPath)
+    .rotate()
     .resize(MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, {
       fit: 'inside',
       withoutEnlargement: true
